@@ -1,0 +1,47 @@
+1.安裝windows版本
+setup_espeak-1.48.04.exe
+https://espeak.sourceforge.net/download.html
+
+2.將安裝資料夾中的"eSpeak\command_line\espeak.exe"
+複製到eSpeak目錄下
+
+3.到進階系統設定-環境變數-系統變數-Path(編輯)-新增(D:\software\eSpeak)
+
+4.CMD執行，可以聽到語音
+espeak "Hello, this is a test."
+
+5.中文語音
+https://espeak.sourceforge.net/data/
+將上方網址下載的zh_listx.zip解壓縮至eSpeak\dictsource\
+在eSpeak\dictsource開啟cmd指令espeak --compile=zh
+
+4.測試中文語音
+espeak -v zh -s 110 "123456789"
+
+5.轉寫於JAVA
+package org.wj.prajumsook.demo;
+
+import java.io.IOException;
+
+public class EspeakChineseExample {
+    public static void main(String[] args) {
+        // 中文語音合成文字
+        String text = "123456789";
+
+        // 語速設置 (可以調整為 80 到 450，數值越高，語速越快)
+        int speed = 110;
+
+        // 語音合成命令 (使用 eSpeak 朗讀中文)
+        String cmd = "espeak -v zh -s " + speed + " \"" + text + "\"";
+
+        try {
+            // 執行 eSpeak 命令
+            Process process = Runtime.getRuntime().exec(cmd);
+
+            // 等待語音播放完成
+            process.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
