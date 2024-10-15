@@ -1,0 +1,43 @@
+https://blog.csdn.net/yuiezt/article/details/130011063
+
+
+import com.jacob.activeX.ActiveXComponent;
+import com.jacob.com.Dispatch;
+import com.jacob.com.Variant;
+
+import java.io.ByteArrayOutputStream;
+import java.util.Base64;
+
+public class TTSMain {
+    public static void main(String[] args) {
+        ActiveXComponent activeXComponent = new ActiveXComponent("Sapi.SpVoice");
+		Dispatch dis = activeXComponent.getObject();
+
+		try{
+			activeXComponent.setProperty("Volume", new Variant(100));
+			activeXComponent.setProperty("Rate", new Variant(-1));
+			Dispatch.call(dis,"Speak",new Variant("6 6 6 1 2 3 早安你好總共一百塊"));
+//			{
+//				// 使用 ByteArrayOutputStream 捕獲語音數據
+//				ByteArrayOutputStream audioOutputStream = new ByteArrayOutputStream();
+//				Dispatch audioStream = Dispatch.call(activeXComponent, "CreateAudioOutputStream").toDispatch();
+//
+//				// 讓語音透過 Stream 輸出
+//				Dispatch.call(dis, "Speak", new Variant("7 7 1 2 3 文字"), new Variant(audioStream));
+//
+//				// 獲取音訊數據並轉換為 Base64
+//				byte[] audioData = audioOutputStream.toByteArray();
+//				String base64Audio = Base64.getEncoder().encodeToString(audioData);
+//
+//				// 輸出 Base64 編碼的音訊
+//				System.out.println("Base64 Audio: " + base64Audio);
+//			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			dis.safeRelease();
+			activeXComponent.safeRelease();
+		}
+    }
+}
